@@ -47,7 +47,7 @@ VALIDATE $? "Starting Nginx"
 rm -rf /usr/share/nginx/html/* &>>$LOG_FILE_NAME
 VALIDATE $? "Removing Default Nginx Content"
 
-curl -o /usr/share/nginx/html/index.html https://expense-builds.s3.us-east-1.amazonaws.com/index.html &>>$LOG_FILE_NAME
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Downloading Index Page"
 
 cd /usr/share/nginx/html
