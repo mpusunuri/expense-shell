@@ -42,10 +42,16 @@ VALIDATE $? "Enabling NodeJS:20 Module"
 dnf install -y nodejs &>>$LOG_FILE_NAME
 VALIDATE $? "Installing NodeJS" 
 
-useradd expense &>>$LOG_FILE_NAME
-VALIDATE $? "Adding User Expense"
+id expense &>>$LOG_FILE_NAME
+if [ $? -nq 0 ]
+then
+    useradd expense &>>$LOG_FILE_NAME
+    VALIDATE $? "Adding User Expense"
+else
+    echo -e "User Expense already exists ... $Y SKIPPING $N"
+fi
 
-mkdir /app &>>$LOG_FILE_NAME
+mkdir -p /app &>>$LOG_FILE_NAME
 VALIDATE $? "Creating Directory /app"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE_NAME
