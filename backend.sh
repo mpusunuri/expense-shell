@@ -43,7 +43,7 @@ dnf install -y nodejs &>>$LOG_FILE_NAME
 VALIDATE $? "Installing NodeJS" 
 
 id expense &>>$LOG_FILE_NAME
-if [ $? -nq 0 ]
+if [ $? -ne 0 ]
 then
     useradd expense &>>$LOG_FILE_NAME
     VALIDATE $? "Adding User Expense"
@@ -58,6 +58,7 @@ curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expen
 VALIDATE $? "Downloading Backend Code"
 
 cd /app
+rm -rf /app/*
 
 unzip /tmp/backend.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Extracting Backend Code"
